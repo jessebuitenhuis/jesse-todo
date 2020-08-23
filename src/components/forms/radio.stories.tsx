@@ -1,4 +1,4 @@
-import { Checkbox, Radio, RadioGroup } from "./checkbox-radio";
+import { Radio, RadioGroup } from "./checkbox-radio";
 import { Meta } from "@storybook/react/types-6-0";
 import { SFC } from "react";
 import React from "react";

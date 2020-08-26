@@ -1,5 +1,11 @@
-import React, { CSSProperties, Component, useState } from "react";
-import { BorderRadius, Padding, Border } from "../variables";
+import React, { useState, CSSProperties } from "react";
+import { Padding } from "../variables";
+import styles from "./card.module.scss";
+
+export interface CardProps {
+  children: any;
+  isList?: boolean;
+}
 
 export const CardBody = ({ children }: { children: any }) => (
   <div style={{ padding: Padding.Default }}>{children}</div>
@@ -11,43 +17,14 @@ export const CardFooter = ({ children }: { children: any }) => (
   <div style={{ padding: Padding.Default }}>{children}</div>
 );
 
-export const Card = ({
-  isFirst = true,
-  isLast = true,
-  isOpen = false,
-  children,
-  onClick,
-}: {
-  isFirst?: boolean;
-  isLast?: boolean;
-  isOpen?: boolean;
-  children: any;
-  onClick: () => any;
-}) => {
-  const style: CSSProperties = {
-    borderRadius: BorderRadius.Default,
-    border: Border.Default,
+export const Card = ({ children, isList }: CardProps) => {
+  const getClassNames = () => {
+    const classes = [styles.card];
+    if (isList) {
+      classes.push(styles.cardListItem);
+    }
+    return classes.join(" ");
   };
 
-  const [open, setOpen] = useState(false);
-
-  if (!isFirst && !open) {
-    style.borderTopLeftRadius = style.borderTopRightRadius = 0;
-  }
-
-  if (!isLast && !open) {
-    style.borderBottomLeftRadius = style.borderBottomRightRadius = 0;
-    style.borderBottomWidth = 0;
-  }
-
-  if (open && !isLast) {
-    style.marginBottom = "1em";
-  }
-
-  return (
-    <div style={style} onClick={() => setOpen(!open)}>
-      {children}
-      {isFirst}
-    </div>
-  );
+  return <div className={getClassNames()}>{children}</div>;
 };

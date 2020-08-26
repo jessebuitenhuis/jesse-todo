@@ -1,12 +1,24 @@
-import React, { Children, cloneElement } from "react";
+import React, {
+  Children,
+  cloneElement,
+  ReactChildren,
+  isValidElement,
+  ReactNode,
+  ReactNodeArray,
+  FunctionComponentElement,
+} from "react";
+import styles from "./card-list.module.scss";
+import { CardProps } from "./card";
 
-export const CardList = ({ children }: { children: any }) => {
+export const CardList = ({
+  children,
+}: {
+  children: FunctionComponentElement<CardProps>[];
+}) => {
   const clones = Children.map(children, (child, index) =>
     cloneElement(child, {
-      isFirst: index === 0,
-      isLast: index === children.length - 1,
+      isList: true,
     })
   );
-
-  return <div>{clones}</div>;
+  return <div className={styles.cardList}>{clones}</div>;
 };

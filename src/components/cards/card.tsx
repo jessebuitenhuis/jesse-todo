@@ -1,6 +1,7 @@
 import React, { useState, CSSProperties } from "react";
 import { Padding } from "../variables";
 import styles from "./card.module.scss";
+import { CheckboxRadioProps, Radio, Checkbox } from "../forms/checkbox-radio";
 
 export interface CardProps {
   children: any;
@@ -27,4 +28,24 @@ export const Card = ({ children, isList }: CardProps) => {
   };
 
   return <div className={getClassNames()}>{children}</div>;
+};
+
+export const CardRadio = (
+  props: CheckboxRadioProps & Omit<CardProps, "children">
+) => {
+  return (
+    <Card {...props}>
+      <Radio {...props} block padding></Radio>
+    </Card>
+  );
+};
+
+export const CardCheckbox = (
+  props: CheckboxRadioProps & Omit<CardProps, "children">
+) => {
+  return (
+    <Card {...props}>
+      <Checkbox {...props} block padding></Checkbox>
+    </Card>
+  );
 };

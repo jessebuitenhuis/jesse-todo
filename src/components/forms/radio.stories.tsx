@@ -10,6 +10,10 @@ export default {
 
 export const Primary: SFC<{}> = () => <Radio />;
 export const WithLabel: SFC<{}> = () => <Radio label="This is a label" />;
+export const Block: SFC<{}> = () => <Radio label="This is a label" block />;
+export const BlockPadding: SFC<{}> = () => (
+  <Radio label="This is a label" block padding />
+);
 export const Group: SFC<{}> = () => (
   <RadioGroup name="group">
     <Radio label="This is a label"></Radio>

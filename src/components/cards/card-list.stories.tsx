@@ -21,3 +21,5 @@ export const Default = () => (
     {TestCard}
   </CardList>
 );
+
+export const Single = () => <CardList>{TestCard}</CardList>;

@@ -7,18 +7,18 @@ import React, {
   ReactNodeArray,
   FunctionComponentElement,
 } from "react";
-import styles from "./card-list.module.scss";
 import { CardProps } from "./card";
+import { ArrayOrT } from "../../utils/types";
 
 export const CardList = ({
   children,
 }: {
-  children: FunctionComponentElement<CardProps>[];
+  children: ArrayOrT<FunctionComponentElement<CardProps>>;
 }) => {
   const clones = Children.map(children, (child, index) =>
     cloneElement(child, {
       isList: true,
     })
   );
-  return <div className={styles.cardList}>{clones}</div>;
+  return <div>{clones}</div>;
 };

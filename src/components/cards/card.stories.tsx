@@ -5,6 +5,7 @@ import {
   CardFooter,
   CardRadio,
   CardCheckbox,
+  CardList,
 } from "./card";
 import { Meta } from "@storybook/react/types-6-0";
 import React from "react";
@@ -23,15 +24,18 @@ export const Default = () => (
   </Card>
 );
 
-export const CardWithRadio = () => <CardRadio label="hello"></CardRadio>;
-
-export const CardWithRadioGroup = () => (
-  <RadioGroup name="test">
-    <CardRadio label="Option 1"></CardRadio>
-    <CardRadio label="Option 1"></CardRadio>
-  </RadioGroup>
+const TestCard = (
+  <Card>
+    <CardBody>Item</CardBody>
+  </Card>
 );
 
-export const CardWithCheckbox = () => (
-  <CardCheckbox label="hello"></CardCheckbox>
+export const CardListMultiple = () => (
+  <CardList>
+    {TestCard}
+    {TestCard}
+    {TestCard}
+  </CardList>
 );
+
+export const CardListSingle = () => <CardList>{TestCard}</CardList>;

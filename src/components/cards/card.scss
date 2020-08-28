@@ -1,0 +1,48 @@
+$card-padding-x: 16px;
+$card-padding-y: 12px;
+$card-padding: $card-padding-y $card-padding-x;
+
+$card-border-radius: 10px;
+$card-border-width: 1px;
+$card-border-color: lightgrey;
+
+.card {
+  border-radius: $card-border-radius;
+  border: $card-border-width solid $card-border-color;
+  background-color: white;
+}
+
+.card-body,
+.card-footer,
+.card-header {
+  padding: $card-padding;
+}
+
+.card-radio,
+.card-checkbox {
+  .card-body {
+    padding: 0px;
+
+    label {
+      padding: $card-padding;
+    }
+  }
+}
+
+.card-list {
+  > :not(:first-child) {
+    &:not(.check-radio-card),
+    &.check-radio-card > label {
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+      margin-top: -1px;
+    }
+  }
+  > :not(:last-child) {
+    &:not(.check-radio-card),
+    &.check-radio-card > label {
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+  }
+}

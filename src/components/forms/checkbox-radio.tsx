@@ -1,17 +1,20 @@
 import React, {
   cloneElement,
-  FunctionComponentElement,
-  Children,
   CSSProperties,
+  isValidElement,
+  ChangeEventHandler,
+  useState,
 } from "react";
-import { ArrayOrT, ContentChildren } from "../../utils/types";
+import { ComponentChildren } from "../../utils/types";
+import "./checkbox-radio.scss";
 
 export interface CheckboxRadioProps<T = unknown> {
   label?: string;
   name?: string;
   value: T;
   block?: boolean;
-  padding?: boolean;
+  card?: boolean;
+  onChange?: (isSelected?: boolean, value?: T) => void;
 }
 
 let i = 0;
@@ -21,27 +24,30 @@ const CheckboxOrRadio = ({
   type,
   name,
   block,
-  padding,
+  card,
+  onChange,
 }: CheckboxRadioProps & { type: "checkbox" | "radio" }) => {
   const key = `checkbox-${i++}`;
-
   const style: CSSProperties = {};
 
-  if (block) {
-    style.display = "block";
-    style.width = "100%";
-  }
+  if (block) style.display = "block";
 
-  if (padding) {
-    style.padding = "10px";
-  }
+  const classes = [type === "radio" ? "form-radio" : "form-check"];
+  if (card) classes.push("check-radio-card");
 
-  // TODO select value
+  const onChangeHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
+    const selected = event.target.checked;
+    // setSelected(selected);
+    onChange && onChange(selected);
+  };
 
   return (
-    <label htmlFor={key} style={style}>
-      <input type={type} id={key} name={name} /> {label}
-    </label>
+    <div className={classes.join(" ")}>
+      <input type={type} id={key} name={name} onChange={onChangeHandler} />
+      <label htmlFor={key} style={style}>
+        {label}
+      </label>
+    </div>
   );
 };
 
@@ -53,15 +59,28 @@ export const Radio = (props: CheckboxRadioProps) => (
 );
 
 export const RadioGroup = ({
-  name,
+  name = `radio-group-${i++}`,
+  card = false,
   children,
 }: {
-  name: string;
-  children: ContentChildren<CheckboxRadioProps>;
+  name?: string;
+  card?: boolean;
+  children: ComponentChildren<CheckboxRadioProps>;
 }) => {
+  const [value, setValue] = useState<unknown>(undefined);
+  const onChange = (selected: boolean, value: unknown) => {
+    if (selected) setValue(value);
+  };
+
   const childrenWithName = React.Children.map(children, (child) =>
-    cloneElement(child, { name })
+    isValidElement(child)
+      ? cloneElement(child, { name: name, card, onChange: onChange } as Partial<
+          CheckboxRadioProps
+        >)
+      : child
   );
 
-  return <div>{childrenWithName}</div>;
+  const className = card ? "card-list" : "";
+
+  return <div className={className}>{childrenWithName}</div>;
 };

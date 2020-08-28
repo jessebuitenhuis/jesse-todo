@@ -1,51 +1,26 @@
-import React, { useState, CSSProperties } from "react";
-import { Padding } from "../variables";
-import styles from "./card.module.scss";
-import { CheckboxRadioProps, Radio, Checkbox } from "../forms/checkbox-radio";
+import React from "react";
+import { Checkbox, CheckboxRadioProps, Radio } from "../forms/checkbox-radio";
+import "./card.scss";
+import { ContentChildrenProps } from "../../utils/types";
 
-export interface CardProps {
-  children: any;
-  isList?: boolean;
+export const CardBody = ({ children }: ContentChildrenProps) => (
+  <div className="card-body">{children}</div>
+);
+export const CardHeader = ({ children }: ContentChildrenProps) => (
+  <div className="card-header">{children}</div>
+);
+export const CardFooter = ({ children }: ContentChildrenProps) => (
+  <div className="card-footer">{children}</div>
+);
+
+export interface CardProps extends ContentChildrenProps {
+  className?: string;
 }
 
-export const CardBody = ({ children }: { children: any }) => (
-  <div style={{ padding: Padding.Default }}>{children}</div>
-);
-export const CardHeader = ({ children }: { children: any }) => (
-  <div style={{ padding: Padding.Default }}>{children}</div>
-);
-export const CardFooter = ({ children }: { children: any }) => (
-  <div style={{ padding: Padding.Default }}>{children}</div>
-);
-
-export const Card = ({ children, isList }: CardProps) => {
-  const getClassNames = () => {
-    const classes = [styles.card];
-    if (isList) {
-      classes.push(styles.cardListItem);
-    }
-    return classes.join(" ");
-  };
-
-  return <div className={getClassNames()}>{children}</div>;
+export const Card = ({ children, className }: CardProps) => {
+  return <div className={[className, "card"].join(" ")}>{children}</div>;
 };
 
-export const CardRadio = (
-  props: CheckboxRadioProps & Omit<CardProps, "children">
-) => {
-  return (
-    <Card {...props}>
-      <Radio {...props} block padding></Radio>
-    </Card>
-  );
-};
-
-export const CardCheckbox = (
-  props: CheckboxRadioProps & Omit<CardProps, "children">
-) => {
-  return (
-    <Card {...props}>
-      <Checkbox {...props} block padding></Checkbox>
-    </Card>
-  );
+export const CardList = ({ children }: ContentChildrenProps) => {
+  return <div className="card-list">{children}</div>;
 };

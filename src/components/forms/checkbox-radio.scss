@@ -1,0 +1,97 @@
+@import "../cards/card.scss";
+
+$input-size: 16px;
+$inner-size: 8px;
+$padding-left: $input-size + 8px;
+$color: blue;
+
+.form-radio,
+.form-check {
+  label {
+    position: relative;
+    padding-left: $padding-left;
+
+    &:before,
+    &:after {
+      content: "";
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: $input-size;
+      height: $input-size;
+    }
+
+    &:before {
+      display: block;
+      border: 1px solid grey;
+    }
+  }
+
+  input {
+    display: none;
+
+    &:checked ~ label {
+      &:before {
+        border-color: $color;
+      }
+      &:after {
+        display: block;
+        border: 1px solid $color;
+        background-color: $color;
+      }
+    }
+  }
+}
+
+.form-radio {
+  label {
+    &:before,
+    &:after {
+      border-radius: 100%;
+    }
+  }
+
+  input:checked ~ label:after {
+    width: $inner-size;
+    height: $inner-size;
+    margin-left: ($input-size - $inner-size) / 2;
+  }
+}
+
+.form-check label {
+  &:before,
+  &:after {
+    border-radius: 4px;
+  }
+}
+
+.check-radio-card {
+  label {
+    @extend .card;
+    padding: $card-padding-y $card-padding-x $card-padding-y
+      ($card-padding-x + $padding-left);
+    display: block;
+
+    &:before,
+    &:after {
+      left: $card-padding-x;
+    }
+  }
+
+  label:hover,
+  input:checked ~ label {
+    background-color: rgba($color, 0.05);
+    z-index: 1;
+  }
+
+  input:checked ~ label {
+    z-index: 2;
+  }
+
+  input:checked ~ label {
+    border-color: $color;
+    color: $color;
+  }
+}

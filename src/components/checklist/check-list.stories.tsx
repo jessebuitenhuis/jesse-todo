@@ -1,9 +1,6 @@
-import { Card, CardBody } from "./card";
 import { Meta } from "@storybook/react/types-6-0";
 import React from "react";
-import { CardList } from "./card-list";
 import { CheckList, CheckListItem } from "./check-list";
-import { Checkbox } from "../forms/checkbox-radio";
 
 export default {
   title: "Components/CheckList",

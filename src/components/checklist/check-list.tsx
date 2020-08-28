@@ -1,6 +1,6 @@
-import { CardList } from "./card-list";
 import React from "react";
-import { Card, CardRadio, CardCheckbox } from "./card";
+import { CardList } from "../cards/card";
+import { Checkbox } from "../forms/checkbox-radio";
 
 export interface CheckListItem<T = unknown> {
   label: string;
@@ -15,7 +15,7 @@ export const CheckList = <T,>({ items }: CheckListProps<T>) => {
   return (
     <CardList>
       {items.map((item) => (
-        <CardCheckbox {...item}></CardCheckbox>
+        <Checkbox card {...item}></Checkbox>
       ))}
     </CardList>
   );
